@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AZAI Enterprises — Ecom Consultation and Management</title>
+<meta name="description" content="AZAI Enterprises builds and scales marketplace businesses: Amazon wholesale, private label and arbitrage, Shopify, Walmart, TikTok Shop, product sourcing, plus US LLC and UK Ltd formation with trademark registration. Offices in India, UK, USA, Azerbaijan and UAE." />
+
+<!--
+  ══════════════════════════════════════════════════════════
+  AZAI ENTERPRISES — two things to change before going live
+  ══════════════════════════════════════════════════════════
+  1. INBOX — search for  MAIL =  in the script near the bottom.
+     Put your address there. It is never shown on the page; it
+     only tells the forms where to send. Visitors never see it.
+  2. CALENDAR — search for  BOOKING_URL.  If you use Calendly or
+     Cal.com, paste the link and every "Book a consultation"
+     button opens your calendar instead of the form.
+  Everything else is done. Upload this file as index.html.
+  Note: all dashboard, listing and live-stream figures are marked
+  as illustrative. Swap them for real numbers once you have them.
+  ══════════════════════════════════════════════════════════
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@300;400;500;600&family=Montserrat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════
+   TOKENS
+   ══════════════════════════════════════════════ */
+:root{
+  /* surfaces — lifted off pure black so the page reads bright */
+  --base:#0B0C11;
+  --panel:#14161E;
+  --panel-hi:#1C1F2A;
+  --edge:rgba(255,255,255,.13);
+  --edge-hi:rgba(255,198,92,.42);
+
+  /* ink */
+  --white:#FFFFFF;
+  --ink:#F1F2F6;
+  --ink-2:#B9BDC9;
+  --mute:#7E8595;
+
+  /* accents */
+  --gold:#FFC65C;
+  --gold-hi:#FFE0A3;
+  --gold-deep:#E09A2B;
+  --azure:#5AA9FF;
+
+  --display:"Sora",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --brand:"Montserrat",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+
+  --max:1200px;
+  --gut:clamp(20px,5vw,60px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--base);color:var(--ink);
+  font-family:var(--body);font-weight:300;font-size:16.5px;line-height:1.66;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
+
+/* ambient light — brighter than a flat black page */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(860px 520px at 82% -8%,rgba(255,198,92,.20),transparent 62%),
+    radial-gradient(680px 560px at 4% 42%,rgba(90,169,255,.13),transparent 64%),
+    radial-gradient(760px 600px at 60% 108%,rgba(255,198,92,.10),transparent 66%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:78px 78px;
+  -webkit-mask-image:radial-gradient(900px 700px at 50% 20%,#000,transparent 78%);
+  mask-image:radial-gradient(900px 700px at 50% 20%,#000,transparent 78%);
+}
+
+/* ══════════════════════════════════════════════
+   TYPE
+   ══════════════════════════════════════════════ */
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.05;letter-spacing:-.03em}
+h1{font-size:clamp(2.55rem,6.4vw,4.7rem);font-weight:800;line-height:1.02}
+h2{font-size:clamp(1.95rem,4vw,3.1rem)}
+h3{font-size:clamp(1.15rem,1.7vw,1.36rem);letter-spacing:-.02em;line-height:1.24}
+h4{font-size:1.05rem;letter-spacing:-.015em}
+p{max-width:62ch}
+.lede{font-size:clamp(1.02rem,1.6vw,1.18rem);color:var(--ink-2);font-weight:300;line-height:1.62}
+.mute{color:var(--mute)}
+.gold{color:var(--gold)}
+
+.tag{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);font-weight:500;
+}
+.tag--blue{color:var(--azure)}
+.tag--mute{color:var(--mute)}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;
+  padding:7px 14px;border:1px solid var(--edge);border-radius:100px;
+  background:rgba(255,198,92,.07);margin-bottom:22px}
+.eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold);
+  box-shadow:0 0 0 4px rgba(255,198,92,.2);animation:blip 2.4s ease-in-out infinite}
+@keyframes blip{50%{box-shadow:0 0 0 8px rgba(255,198,92,0)}}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════════════ */
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--gut);position:relative;z-index:1}
+.band{padding-block:clamp(66px,9vw,120px);position:relative;z-index:1}
+.band--sm{padding-block:clamp(48px,6.5vw,84px);position:relative;z-index:1}
+/* a band that visibly separates from the rest of the page */
+.zone{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0));
+  border-block:1px solid var(--edge);position:relative;z-index:1}
+
+.head{max-width:680px;margin-bottom:clamp(34px,4.5vw,54px)}
+.head h2{margin:14px 0 18px}
+.head--center{margin-inline:auto;text-align:center}
+
+.grid{display:grid;gap:1px;background:var(--edge);border:1px solid var(--edge);border-radius:4px;overflow:hidden}
+.grid--3{grid-template-columns:repeat(3,1fr)}
+.grid--4{grid-template-columns:repeat(4,1fr)}
+.grid--2{grid-template-columns:repeat(2,1fr)}
+
+/* ══════════════════════════════════════════════
+   LOGO MARK
+   ══════════════════════════════════════════════ */
+.mark{width:34px;height:34px;flex:none}
+.mark path,.logo3d__layer path{fill:currentColor}
+
+.brand{display:flex;align-items:center;gap:12px;color:var(--white)}
+.brand__name{font-family:var(--brand);font-weight:700;font-size:.95rem;
+  letter-spacing:.16em;text-transform:uppercase;line-height:1.1;display:block}
+.brand__sub{display:block;font-family:var(--mono);font-size:.5rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--mute);margin-top:3px}
+
+/* ══════════════════════════════════════════════
+   NAV
+   ══════════════════════════════════════════════ */
+.nav{position:fixed;inset:0 0 auto 0;z-index:60;backdrop-filter:blur(16px);
+  background:rgba(11,12,17,.6);border-bottom:1px solid transparent;transition:.4s}
+.nav.is-stuck{background:rgba(11,12,17,.92);border-bottom-color:var(--edge)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:24px;
+  max-width:var(--max);margin-inline:auto;padding:15px var(--gut)}
+.menu{display:flex;align-items:center;gap:32px}
+.menu a{font-family:var(--display);font-size:.79rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mute);position:relative;padding-block:6px;transition:color .3s}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:var(--gold);transition:width .35s var(--ease)}
+.menu a:hover{color:var(--white)}
+.menu a[aria-current="page"]{color:var(--white)}
+.menu a:hover::after,.menu a[aria-current="page"]::after{width:100%}
+
+.burger{display:none;width:42px;height:36px;position:relative;flex:none}
+.burger i{position:absolute;left:10px;right:10px;height:2px;background:var(--white);
+  border-radius:2px;transition:.35s var(--ease)}
+.burger i:nth-child(1){top:12px}
+.burger i:nth-child(2){bottom:12px}
+.burger.is-open i:nth-child(1){top:17px;transform:rotate(45deg)}
+.burger.is-open i:nth-child(2){bottom:17px;transform:rotate(-45deg)}
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 26px;border-radius:3px;font-family:var(--display);
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  transition:.35s var(--ease);white-space:nowrap}
+.btn--gold{background:linear-gradient(135deg,var(--gold-hi),var(--gold));color:#12130F;
+  box-shadow:0 8px 30px -14px rgba(255,198,92,.8)}
+.btn--gold:hover{transform:translateY(-2px);box-shadow:0 16px 40px -14px rgba(255,198,92,.95)}
+.btn--ghost{border:1px solid var(--edge);color:var(--white);background:rgba(255,255,255,.03)}
+.btn--ghost:hover{border-color:var(--edge-hi);background:rgba(255,198,92,.09);transform:translateY(-2px)}
+.btn--sm{padding:11px 19px;font-size:.71rem}
+.btn--wide{width:100%}
+.btn__arrow{transition:transform .35s var(--ease)}
+.btn:hover .btn__arrow{transform:translateX(5px)}
+
+/* ══════════════════════════════════════════════
+   ROUTER
+   ══════════════════════════════════════════════ */
+.page{display:none}
+.page.is-live{display:block;animation:pageIn .55s var(--ease) both}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+[data-reveal]{opacity:0;transform:translateY(28px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease)}
+[data-reveal].seen{opacity:1;transform:none}
+
+/* ══════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════ */
+.hero{padding-top:clamp(116px,16vw,168px);padding-bottom:clamp(46px,6vw,74px)}
+.hero__grid{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(30px,5vw,60px);align-items:center}
+.hero h1{margin-bottom:24px}
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+
+/* ── SIGNATURE 1: channel cube ── */
+.cubewrap{display:grid;place-items:center;min-height:420px;perspective:1300px}
+.cubestage{position:relative;width:224px;height:224px}
+.cube{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.face{position:absolute;inset:0;border:1px solid var(--edge-hi);border-radius:3px;
+  background:linear-gradient(155deg,rgba(255,198,92,.20),rgba(20,22,30,.93) 66%);
+  backdrop-filter:blur(3px);display:flex;flex-direction:column;justify-content:space-between;padding:20px}
+.face__k{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.face__t{font-family:var(--display);font-weight:700;font-size:1.42rem;letter-spacing:-.03em;color:var(--white)}
+.face__n{font-size:.73rem;color:var(--ink-2);line-height:1.5;margin-top:7px}
+.f-front {transform:rotateY(0deg)   translateZ(112px)}
+.f-right {transform:rotateY(90deg)  translateZ(112px)}
+.f-back  {transform:rotateY(180deg) translateZ(112px)}
+.f-left  {transform:rotateY(-90deg) translateZ(112px)}
+.f-top   {transform:rotateX(90deg)  translateZ(112px)}
+.f-bottom{transform:rotateX(-90deg) translateZ(112px)}
+.cube__glow{position:absolute;left:50%;top:calc(50% + 158px);width:340px;height:340px;
+  transform:translate(-50%,-50%) rotateX(84deg);
+  background:radial-gradient(closest-side,rgba(255,198,92,.30),transparent 72%);filter:blur(18px)}
+.cubepick{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:40px;max-width:340px}
+.cubepick button{font-family:var(--mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:8px 12px;border:1px solid var(--edge);color:var(--mute);border-radius:100px;transition:.3s var(--ease)}
+.cubepick button:hover,.cubepick button.on{color:#12130F;background:var(--gold);border-color:var(--gold)}
+
+/* ══════════════════════════════════════════════
+   TICKER
+   ══════════════════════════════════════════════ */
+.ticker{border-block:1px solid var(--edge);overflow:hidden;padding-block:15px;position:relative;z-index:1;
+  background:rgba(255,255,255,.02)}
+.ticker__row{display:flex;gap:46px;width:max-content;animation:slide 36s linear infinite}
+.ticker span{font-family:var(--display);font-weight:600;font-size:.88rem;letter-spacing:.06em;
+  text-transform:uppercase;color:#5B6270;white-space:nowrap;display:flex;align-items:center;gap:46px}
+.ticker span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.75}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ══════════════════════════════════════════════
+   STATS BAND — its own section
+   ══════════════════════════════════════════════ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:clamp(30px,4vw,46px) clamp(16px,2.4vw,30px);text-align:center;position:relative}
+.stat + .stat::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--edge)}
+.stat__n{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,4.6vw,3.4rem);
+  line-height:1;letter-spacing:-.045em;display:block;
+  background:linear-gradient(160deg,#FFFFFF 12%,var(--gold) 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.stat__l{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mute);margin-top:12px;display:block}
+
+/* ══════════════════════════════════════════════
+   SERVICE CARDS
+   ══════════════════════════════════════════════ */
+.card{background:var(--panel);padding:30px 26px 32px;position:relative;
+  display:flex;flex-direction:column;
+  transform-style:preserve-3d;transition:background .4s var(--ease),transform .5s var(--ease)}
+.card:hover{background:var(--panel-hi)}
+.card__top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.card__ico{width:38px;height:38px;flex:none;border:1px solid var(--edge-hi);border-radius:3px;
+  display:grid;place-items:center;color:var(--gold);background:rgba(255,198,92,.09);
+  font-size:1rem;transition:.4s var(--ease)}
+.card:hover .card__ico{background:var(--gold);color:#12130F;transform:translateZ(30px)}
+.card h3{margin-bottom:11px;color:var(--white);transform:translateZ(22px)}
+.card > p{font-size:.9rem;color:var(--ink-2);line-height:1.62;transform:translateZ(12px)}
+.card__list{list-style:none;margin-top:auto;padding-top:18px;display:grid;gap:8px;
+  border-top:1px solid var(--edge)}
+.card__list li{font-size:.82rem;color:var(--ink-2);padding-left:18px;position:relative;line-height:1.55}
+.card__list li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:1px;background:var(--gold)}
+.card__glow{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,198,92,.14),transparent 70%)}
+.card:hover .card__glow{opacity:1}
+.card__bar{position:absolute;left:0;right:0;top:0;height:2px;transform:scaleX(0);transform-origin:left;
+  background:linear-gradient(90deg,var(--gold),var(--azure));transition:transform .45s var(--ease)}
+.card:hover .card__bar{transform:scaleX(1)}
+.card__list{margin-top:18px}
+
+.subhead{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.subhead h3{font-size:clamp(1.3rem,2.2vw,1.7rem);color:var(--white)}
+.subhead .line{flex:1;height:1px;background:var(--edge);min-width:40px}
+
+/* ══════════════════════════════════════════════
+   STEPS
+   ══════════════════════════════════════════════ */
+.steps{display:grid}
+.step{display:grid;grid-template-columns:84px 1fr;gap:clamp(16px,3vw,40px);
+  padding-block:28px;border-top:1px solid var(--edge);align-items:start}
+.step:last-child{border-bottom:1px solid var(--edge)}
+.step__n{font-family:var(--display);font-weight:800;font-size:1.7rem;line-height:1;
+  color:rgba(255,198,92,.10);-webkit-text-stroke:1px var(--gold-deep);transition:.4s var(--ease)}
+.step:hover .step__n{-webkit-text-stroke-color:var(--gold);color:rgba(255,198,92,.24)}
+.step h3{margin-bottom:8px;color:var(--white)}
+.step p{font-size:.92rem;color:var(--ink-2)}
+
+/* ══════════════════════════════════════════════
+   SIGNATURE 2: extruded 3D logo
+   ══════════════════════════════════════════════ */
+.logo3d{display:grid;place-items:center;min-height:400px;perspective:1000px;position:relative}
+.logo3d__stage{position:relative;width:200px;height:200px;transform-style:preserve-3d;
+  animation:turn 15s ease-in-out infinite}
+@keyframes turn{
+  0%{transform:rotateX(-12deg) rotateY(-34deg)}
+  50%{transform:rotateX(-12deg) rotateY(34deg)}
+  100%{transform:rotateX(-12deg) rotateY(-34deg)}
+}
+.logo3d__layer{position:absolute;inset:0;color:var(--gold-deep)}
+.logo3d__layer:first-child{color:var(--white)}
+.ring{position:absolute;left:50%;top:50%;border:1px solid var(--edge-hi);border-radius:50%;
+  transform:translate(-50%,-50%) rotateX(78deg);animation:ringspin 22s linear infinite}
+.ring--a{width:330px;height:330px}
+.ring--b{width:246px;height:246px;animation-duration:16s;animation-direction:reverse;
+  border-color:rgba(90,169,255,.34)}
+@keyframes ringspin{to{transform:translate(-50%,-50%) rotateX(78deg) rotateZ(360deg)}}
+
+/* ══════════════════════════════════════════════
+   SIGNATURE 3: offices carousel
+   ══════════════════════════════════════════════ */
+.globe{position:relative;height:380px;perspective:1200px;margin-block:10px}
+.globe__core{position:absolute;left:50%;top:50%;width:120px;height:120px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,rgba(255,224,163,.9),rgba(224,154,43,.3) 46%,rgba(20,22,30,.1) 74%);
+  box-shadow:0 0 90px rgba(255,198,92,.45);animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{box-shadow:0 0 135px rgba(255,198,92,.65)}}
+.globe__ring{position:absolute;left:50%;top:50%;border:1px solid var(--edge);border-radius:50%;
+  transform:translate(-50%,-50%) rotateX(74deg)}
+.globe__ring.g1{width:420px;height:420px}
+.globe__ring.g2{width:580px;height:580px;border-color:rgba(255,255,255,.07)}
+.orbit{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;
+  animation:orbit 30s linear infinite}
+@keyframes orbit{to{transform:rotateY(360deg)}}
+.city{position:absolute;width:186px;left:-93px;top:-42px;padding:14px 16px;
+  border:1px solid var(--edge);border-radius:4px;background:rgba(20,22,30,.92);
+  backdrop-filter:blur(6px);text-align:center}
+.city b{display:block;font-family:var(--display);font-weight:700;font-size:.98rem;
+  color:var(--white);letter-spacing:-.02em}
+.city span{font-family:var(--mono);font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.city i{display:block;width:5px;height:5px;border-radius:50%;background:var(--azure);
+  margin:0 auto 8px;box-shadow:0 0 10px var(--azure)}
+.cities{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.chip{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 15px;border:1px solid var(--edge);border-radius:100px;color:var(--ink-2);
+  background:rgba(255,255,255,.03);transition:.3s var(--ease)}
+.chip:hover{border-color:var(--edge-hi);color:var(--gold)}
+
+/* ══════════════════════════════════════════════
+   PILLARS
+   ══════════════════════════════════════════════ */
+.pillar{background:var(--panel);padding:28px 26px;transition:background .4s}
+.pillar:hover{background:var(--panel-hi)}
+.pillar h4{margin:14px 0 9px;color:var(--white)}
+.pillar p{font-size:.86rem;color:var(--ink-2)}
+
+/* ══════════════════════════════════════════════
+   FORM (shared by contact page + modal)
+   ══════════════════════════════════════════════ */
+.field{display:grid;gap:8px;margin-bottom:18px}
+.field label{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.field input,.field select,.field textarea{
+  background:rgba(255,255,255,.04);border:1px solid var(--edge);color:var(--white);
+  padding:13px 15px;border-radius:3px;font-family:var(--body);font-size:.95rem;font-weight:300;
+  transition:.3s var(--ease);width:100%}
+.field textarea{min-height:112px;resize:vertical}
+.field select option{background:#14161E;color:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--gold);background:rgba(255,198,92,.06);outline:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.formbox{background:var(--panel);border:1px solid var(--edge);border-radius:4px;
+  padding:clamp(26px,4vw,42px);position:relative;overflow:hidden}
+.formbox::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--azure),transparent)}
+
+/* ══════════════════════════════════════════════
+   CALLOUT
+   ══════════════════════════════════════════════ */
+.callout{border:1px solid var(--edge-hi);border-radius:5px;padding:clamp(36px,6vw,64px);text-align:center;
+  background:linear-gradient(165deg,rgba(255,198,92,.14),rgba(20,22,30,.6));
+  position:relative;overflow:hidden}
+.callout h2{margin:14px 0 16px;color:var(--white)}
+.callout p{margin-inline:auto;margin-bottom:30px}
+.callout::before{content:"";position:absolute;width:460px;height:460px;left:50%;top:-64%;
+  transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,198,92,.26),transparent 70%);
+  animation:pulse 7s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.55;scale:1}50%{opacity:1;scale:1.16}}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════ */
+.foot{border-top:1px solid var(--edge);padding-block:52px 32px;position:relative;z-index:1;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.03))}
+.foot__grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;gap:36px}
+.foot h5{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;font-weight:500}
+.foot ul{list-style:none;display:grid;gap:9px}
+.foot ul a,.foot ul li{font-size:.87rem;color:var(--ink-2);transition:color .3s}
+.foot ul a:hover{color:var(--gold)}
+.foot__base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-top:44px;padding-top:22px;border-top:1px solid var(--edge);font-size:.75rem;color:#6A7180}
+
+/* ══════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════ */
+.modal{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:20px}
+.modal.is-open{display:grid}
+.modal__veil{position:absolute;inset:0;background:rgba(5,6,9,.84);backdrop-filter:blur(8px);animation:fade .35s both}
+.modal__box{position:relative;width:min(580px,100%);max-height:88vh;overflow-y:auto;
+  background:var(--panel);border:1px solid var(--edge-hi);border-radius:5px;
+  padding:clamp(26px,4vw,42px);animation:rise .45s var(--ease) both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:none}}
+.modal__x{position:absolute;top:14px;right:16px;font-size:1.6rem;color:var(--mute);line-height:1;
+  width:34px;height:34px;transition:color .3s}
+.modal__x:hover{color:var(--gold)}
+.modal h3{margin:12px 0 8px;font-size:1.6rem;color:var(--white)}
+.done{display:none;text-align:center;padding:18px 0}
+.done.on{display:block}
+.done__tick{width:58px;height:58px;margin:0 auto 18px;border:1px solid var(--gold);border-radius:50%;
+  display:grid;place-items:center;color:var(--gold);font-size:1.5rem;
+  box-shadow:0 0 40px rgba(255,198,92,.35)}
+
+/* ══════════════════════════════════════════════
+   TWO-COLUMN SHOWCASE
+   ══════════════════════════════════════════════ */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.duo--flip .duo__art{order:-1}
+.caption{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#6A7180;margin-top:14px;text-align:center}
+.notes{display:grid;gap:18px;margin-top:26px}
+.note{border-left:2px solid var(--gold);padding-left:16px}
+.note b{display:block;color:var(--white);font-family:var(--display);font-weight:600;font-size:.98rem;margin-bottom:3px}
+.note p{font-size:.86rem;color:var(--ink-2)}
+
+/* ══════════════════════════════════════════════
+   DASHBOARD MOCK + SALES CHART
+   ══════════════════════════════════════════════ */
+.dash{border:1px solid var(--edge);border-radius:8px;background:var(--panel);overflow:hidden;
+  box-shadow:0 40px 90px -50px rgba(0,0,0,.95)}
+.dash__bar{display:flex;align-items:center;gap:7px;padding:13px 16px;
+  border-bottom:1px solid var(--edge);background:rgba(255,255,255,.04)}
+.dot{width:9px;height:9px;border-radius:50%;background:#3A3F4B;flex:none}
+.dash__t{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mute);margin-left:10px}
+.dash__live{margin-left:auto;display:flex;align-items:center;gap:7px;font-family:var(--mono);
+  font-size:.55rem;color:#5ED897;letter-spacing:.14em;text-transform:uppercase}
+.dash__live i{width:6px;height:6px;border-radius:50%;background:#5ED897;animation:blink 1.8s infinite}
+@keyframes blink{50%{opacity:.2}}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--edge)}
+.kpi{padding:17px 16px;border-right:1px solid var(--edge)}
+.kpi:last-child{border-right:0}
+.kpi span{font-family:var(--mono);font-size:.53rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mute);display:block}
+.kpi b{font-family:var(--display);font-weight:700;font-size:1.32rem;color:var(--white);
+  display:block;margin-top:7px;letter-spacing:-.035em}
+.kpi em{font-style:normal;font-family:var(--mono);font-size:.62rem;color:#5ED897}
+.kpi em.dn{color:#FF8A7A}
+
+.chartbox{padding:20px 16px 6px}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart__grid{stroke:rgba(255,255,255,.07);stroke-width:.6}
+.chart__area{fill:url(#areaGrad);opacity:0;transition:opacity 1.1s ease 1s}
+.chart__line{fill:none;stroke:url(#lineGrad);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 2.1s var(--ease) .25s}
+.chart__dot{fill:var(--gold);opacity:0;transition:opacity .6s ease 2s}
+.chart__ring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:0;
+  transform-origin:276px 9px;transition:opacity .6s ease 2.1s}
+.chart__lbl{fill:#6A7180;font-family:"JetBrains Mono",monospace;font-size:5.4px;letter-spacing:.08em}
+.seen .chart__line{stroke-dashoffset:0}
+.seen .chart__area,.seen .chart__dot{opacity:1}
+.seen .chart__ring{opacity:.55;animation:ping 2.6s ease-out infinite 2.2s}
+@keyframes ping{0%{r:4;opacity:.6}100%{r:11;opacity:0}}
+
+.splits{padding:6px 16px 20px;display:grid;gap:11px}
+.srow{display:grid;grid-template-columns:104px 1fr 48px;align-items:center;gap:12px}
+.srow span{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.srow b{font-family:var(--mono);font-size:.62rem;color:var(--white);text-align:right}
+.track{height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar{display:block;height:100%;width:0;border-radius:6px;
+  background:linear-gradient(90deg,var(--gold-deep),var(--gold));
+  transition:width 1.5s var(--ease) .5s}
+.bar--blue{background:linear-gradient(90deg,#2E6FB8,var(--azure))}
+.seen .bar{width:var(--w)}
+
+/* ══════════════════════════════════════════════
+   MARKETPLACE LISTING MOCK
+   ══════════════════════════════════════════════ */
+.listing{border:1px solid var(--edge);border-radius:8px;background:var(--panel);overflow:hidden;
+  max-width:430px;margin-inline:auto;box-shadow:0 40px 90px -50px rgba(0,0,0,.95)}
+.listing__img{height:210px;position:relative;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 42%,rgba(255,198,92,.26),rgba(20,22,30,.92) 72%);
+  border-bottom:1px solid var(--edge)}
+.listing__img svg{width:120px;height:120px;color:var(--gold);animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.badge{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;
+  text-transform:uppercase;padding:5px 10px;border-radius:100px;background:var(--gold);color:#12130F;font-weight:500}
+.badge--buy{left:auto;right:14px;background:rgba(94,216,151,.15);color:#5ED897;border:1px solid rgba(94,216,151,.4)}
+.listing__body{padding:20px}
+.listing__body h4{color:var(--white);margin-bottom:8px}
+.stars{display:flex;align-items:center;gap:6px;margin-bottom:14px}
+.stars i{color:var(--gold);font-size:.85rem;font-style:normal;letter-spacing:.1em}
+.stars span{font-family:var(--mono);font-size:.62rem;color:var(--mute)}
+.price{display:flex;align-items:baseline;gap:10px}
+.price b{font-family:var(--display);font-weight:800;font-size:1.9rem;color:var(--white);letter-spacing:-.04em}
+.price s{font-size:.9rem;color:var(--mute)}
+.price em{font-style:normal;font-family:var(--mono);font-size:.6rem;color:#5ED897;
+  border:1px solid rgba(94,216,151,.4);padding:3px 7px;border-radius:3px}
+.ship{font-family:var(--mono);font-size:.62rem;color:#5ED897;margin-top:10px;letter-spacing:.06em}
+.seller{font-size:.74rem;color:var(--mute);margin-top:4px}
+
+/* ══════════════════════════════════════════════
+   LIVE COMMERCE PHONE
+   ══════════════════════════════════════════════ */
+.phone{width:266px;height:534px;border-radius:38px;border:1px solid var(--edge);position:relative;
+  overflow:hidden;margin-inline:auto;background:#0E1017;
+  box-shadow:0 50px 100px -46px rgba(0,0,0,.98),0 0 0 8px rgba(255,255,255,.02)}
+.phone__scene{position:absolute;inset:0;
+  background:radial-gradient(circle at 52% 32%,rgba(90,169,255,.32),transparent 58%),
+             radial-gradient(circle at 26% 84%,rgba(255,198,92,.24),transparent 58%),
+             linear-gradient(175deg,#1A1D28,#0B0C11)}
+.phone__notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:104px;height:22px;
+  background:#0B0C11;border-radius:0 0 14px 14px;z-index:5}
+.phone__host{position:absolute;left:50%;top:150px;transform:translateX(-50%);width:112px;height:112px;
+  border-radius:50%;background:linear-gradient(150deg,rgba(255,224,163,.55),rgba(90,169,255,.35));
+  border:1px solid rgba(255,255,255,.24);animation:float 5s ease-in-out infinite}
+.phone__host::after{content:"";position:absolute;inset:-14px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.14);animation:pulse 4s ease-in-out infinite}
+.live{position:absolute;top:36px;left:14px;display:flex;gap:7px;align-items:center;z-index:4}
+.live__pill{background:#FF4D5E;color:#fff;font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;
+  padding:4px 8px;border-radius:4px}
+.live__eyes{font-family:var(--mono);font-size:.55rem;color:#fff;background:rgba(0,0,0,.45);
+  padding:4px 9px;border-radius:100px}
+.heart{position:absolute;right:26px;bottom:120px;font-size:15px;color:#FF6B8A;opacity:0;z-index:4;
+  animation:heart 4.6s linear infinite}
+.heart:nth-of-type(2){animation-delay:1.4s;right:38px}
+.heart:nth-of-type(3){animation-delay:2.8s;right:18px}
+.heart:nth-of-type(4){animation-delay:3.9s;right:44px}
+@keyframes heart{
+  0%{opacity:0;transform:translateY(0) scale(.5)}
+  12%{opacity:1}
+  100%{opacity:0;transform:translateY(-280px) translateX(-26px) scale(1.25)}
+}
+.pin{position:absolute;left:14px;bottom:104px;width:196px;display:flex;gap:10px;align-items:center;
+  padding:9px;border-radius:11px;background:rgba(11,12,17,.88);border:1px solid var(--edge);
+  backdrop-filter:blur(8px);z-index:4}
+.pin__img{width:40px;height:40px;border-radius:7px;flex:none;
+  background:linear-gradient(140deg,var(--gold-hi),var(--gold-deep))}
+.pin b{font-family:var(--display);font-weight:600;font-size:.72rem;color:#fff;display:block;line-height:1.3}
+.pin span{font-family:var(--mono);font-size:.66rem;color:var(--gold)}
+.pin em{position:absolute;right:9px;bottom:9px;font-style:normal;font-family:var(--mono);font-size:.5rem;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:#12130F;padding:4px 8px;border-radius:4px}
+.cmts{position:absolute;left:14px;bottom:22px;width:190px;display:grid;gap:5px;z-index:4}
+.cmt{font-size:.65rem;color:rgba(255,255,255,.82);opacity:0;animation:cmt 7s linear infinite}
+.cmt b{color:var(--azure);font-weight:600}
+.cmt:nth-child(2){animation-delay:2.3s}
+.cmt:nth-child(3){animation-delay:4.6s}
+@keyframes cmt{0%{opacity:0;transform:translateY(10px)}8%{opacity:1;transform:none}
+  32%{opacity:1}42%{opacity:0}100%{opacity:0}}
+
+/* ══════════════════════════════════════════════
+   CHANNEL COMPARISON
+   ══════════════════════════════════════════════ */
+.tablewrap{overflow-x:auto;border:1px solid var(--edge);border-radius:6px}
+.ctable{width:100%;border-collapse:collapse;min-width:660px;font-size:.86rem}
+.ctable th,.ctable td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--edge)}
+.ctable thead th{background:rgba(255,255,255,.05);font-family:var(--mono);font-size:.58rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.ctable thead th:first-child{color:var(--mute)}
+.ctable tbody th{font-family:var(--display);font-weight:600;color:var(--white);font-size:.85rem;
+  background:rgba(255,255,255,.02)}
+.ctable td{color:var(--ink-2)}
+.ctable tbody tr:last-child th,.ctable tbody tr:last-child td{border-bottom:0}
+.ctable tbody tr:hover td{background:rgba(255,198,92,.05)}
+
+/* ══════════════════════════════════════════════
+   PRICING
+   ══════════════════════════════════════════════ */
+.plan{background:var(--panel);padding:30px 26px;display:flex;flex-direction:column;transition:background .4s}
+.plan:hover{background:var(--panel-hi)}
+.plan__p{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--white);
+  letter-spacing:-.035em;margin:12px 0 2px}
+.plan__n{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.plan p{font-size:.87rem;color:var(--ink-2);margin-top:14px}
+
+/* ══════════════════════════════════════════════
+   FAQ
+   ══════════════════════════════════════════════ */
+.faq{border-top:1px solid var(--edge)}
+.faq details{border-bottom:1px solid var(--edge)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;
+  font-family:var(--display);font-weight:600;font-size:1rem;color:var(--white);transition:color .3s}
+.faq summary:hover{color:var(--gold)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:8px;top:19px;color:var(--gold);
+  font-size:1.4rem;font-weight:400;transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 24px;color:var(--ink-2);font-size:.92rem;max-width:76ch}
+
+@media (max-width:900px){
+  .duo{grid-template-columns:1fr}
+  .duo--flip .duo__art{order:0}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpi:nth-child(2){border-right:0}
+  .kpi:nth-child(n+3){border-top:1px solid var(--edge)}
+}
+@media (max-width:520px){
+  .kpis{grid-template-columns:1fr}
+  .kpi{border-right:0;border-top:1px solid var(--edge)}
+  .kpi:first-child{border-top:0}
+  .srow{grid-template-columns:80px 1fr 42px}
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
+@media (max-width:1040px){
+  .grid--4{grid-template-columns:repeat(2,1fr)}
+  .foot__grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .hero__grid{grid-template-columns:1fr}
+  .cubewrap{min-height:340px;order:-1}
+  .grid--3{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3)::before{display:none}
+  .stat:nth-child(n+3){border-top:1px solid var(--edge)}
+  .globe{height:330px}
+  .logo3d{min-height:320px}
+}
+@media (max-width:760px){
+  .burger{display:block}
+  .menu{position:fixed;inset:62px 0 auto 0;flex-direction:column;align-items:flex-start;gap:0;
+    background:rgba(11,12,17,.99);border-bottom:1px solid var(--edge);
+    padding:8px var(--gut) 26px;transform:translateY(-118%);transition:transform .45s var(--ease)}
+  .menu.is-open{transform:none}
+  .menu a{width:100%;padding-block:16px;border-bottom:1px solid var(--edge);font-size:.92rem}
+  .menu .btn{margin-top:18px;width:100%}
+  .grid--3,.grid--2{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr;gap:8px}
+  .globe{height:300px}
+  .city{width:158px;left:-79px}
+}
+@media (max-width:520px){
+  .grid--4{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .stat + .stat::before{display:none}
+  .stat + .stat{border-top:1px solid var(--edge)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- reusable logo mark, drawn from the supplied logo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="azai" viewBox="0 0 100 100">
+    <path d="M50 5 L97 95 L79 95 L50 39 L21 95 L3 95 Z"/>
+    <path d="M44 43 L52 43 L27 95 L13 95 Z"/>
+  </symbol>
+</svg>
+
+<!-- ══════════ NAV ══════════ -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="brand" href="#/home" aria-label="AZAI Enterprises home">
+      <svg class="mark" aria-hidden="true"><use href="#azai"/></svg>
+      <span>
+        <span class="brand__name">AZAI Enterprises</span>
+        <span class="brand__sub">Ecom Consultation &amp; Management</span>
+      </span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#/home" data-nav="home">Home</a>
+      <a href="#/services" data-nav="services">Services</a>
+      <a href="#/about" data-nav="about">About</a>
+      <a href="#/contact" data-nav="contact">Contact</a>
+      <button class="btn btn--gold btn--sm" data-book>Book a consultation</button>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<main id="app">
+
+<!-- ═══════════════════════════════════════════════
+     HOME
+     ═══════════════════════════════════════════════ -->
+<section class="page" id="page-home">
+
+  <div class="wrap hero">
+    <div class="hero__grid">
+      <div>
+        <span class="eyebrow"><i></i><span class="tag">Amazon · Shopify · Walmart · TikTok Shop</span></span>
+        <h1>We run the <span class="gold">unglamorous</span> half of your e-commerce business.</h1>
+        <p class="lede">AZAI Enterprises sets up, supplies and scales marketplace stores — from sourcing the first unit to registering the company that sells it. You keep the brand. We handle the machinery underneath it.</p>
+        <div class="hero__cta">
+          <button class="btn btn--gold" data-book>Book your consultation <span class="btn__arrow">→</span></button>
+          <a class="btn btn--ghost" href="#/services">See what we do</a>
+        </div>
+      </div>
+
+      <!-- SIGNATURE 1 -->
+      <div class="cubewrap">
+        <div class="cubestage">
+          <div class="cube__glow"></div>
+          <div class="cube" id="cube">
+            <div class="face f-front"><span class="face__k">AMZ / 01</span>
+              <div><span class="face__t">Amazon</span><p class="face__n">Wholesale, private label and arbitrage under one roof.</p></div></div>
+            <div class="face f-right"><span class="face__k">SHP / 02</span>
+              <div><span class="face__t">Shopify</span><p class="face__n">Owned storefronts built to convert, not just to launch.</p></div></div>
+            <div class="face f-back"><span class="face__k">WMT / 03</span>
+              <div><span class="face__t">Walmart</span><p class="face__n">The channel your competitors keep forgetting.</p></div></div>
+            <div class="face f-left"><span class="face__k">TTS / 04</span>
+              <div><span class="face__t">TikTok Shop</span><p class="face__n">Creator seeding, affiliates and live commerce.</p></div></div>
+            <div class="face f-top"><span class="face__k">SRC / 05</span>
+              <div><span class="face__t">Sourcing</span><p class="face__n">Product hunting and supplier vetting that survives audit.</p></div></div>
+            <div class="face f-bottom"><span class="face__k">REG / 06</span>
+              <div><span class="face__t">Formation</span><p class="face__n">US LLC, UK Ltd and trademark filing.</p></div></div>
+          </div>
+        </div>
+        <div class="cubepick" id="cubepick">
+          <button data-face="front" class="on">Amazon</button>
+          <button data-face="right">Shopify</button>
+          <button data-face="back">Walmart</button>
+          <button data-face="left">TikTok</button>
+          <button data-face="top">Sourcing</button>
+          <button data-face="bottom">Formation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker__row" id="tick"></div></div>
+
+  <!-- ── STATS: its own band ── -->
+  <section class="zone">
+    <div class="wrap">
+      <div class="stats" id="stats">
+        <div class="stat"><span class="stat__n" data-count="4">4</span><span class="stat__l">Marketplaces</span></div>
+        <div class="stat"><span class="stat__n" data-count="9">9</span><span class="stat__l">Service lines</span></div>
+        <div class="stat"><span class="stat__n" data-count="5">5</span><span class="stat__l">Global offices</span></div>
+        <div class="stat"><span class="stat__n" data-count="2">2</span><span class="stat__l">Jurisdictions · US &amp; UK</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REPORTING DASHBOARD ── -->
+  <section class="band">
+    <div class="wrap">
+      <div class="duo">
+        <div data-reveal>
+          <span class="tag">Reporting</span>
+          <h2 style="margin:14px 0 18px">You see the same<br>numbers we do.</h2>
+          <p class="lede">Every account we run reports on a fixed weekly rhythm: revenue, units, ad spend, ACOS and margin per channel. No dashboards you need a course to read, and no month-end surprises.</p>
+          <div class="notes">
+            <div class="note"><b>Revenue and units by channel</b>
+              <p>Amazon, Shopify, Walmart and TikTok Shop side by side, so you can see which channel is actually earning its attention.</p></div>
+            <div class="note"><b>Ad spend against a target</b>
+              <p>ACOS and TACOS tracked against the number we agreed, not a number chosen after the fact.</p></div>
+            <div class="note"><b>True margin after fees</b>
+              <p>Referral fees, fulfilment, storage, returns and freight all deducted before we call anything profit.</p></div>
+          </div>
+        </div>
+
+        <div class="duo__art" data-reveal>
+          <div class="dash">
+            <div class="dash__bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="dash__t">AZAI · Client reporting</span>
+              <span class="dash__live"><i></i>Live</span>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi"><span>Revenue</span><b>$184.2k</b><em>▲ 18.4%</em></div>
+              <div class="kpi"><span>Units</span><b>6,410</b><em>▲ 12.1%</em></div>
+              <div class="kpi"><span>ACOS</span><b>14.6%</b><em class="dn">▼ 3.2pt</em></div>
+              <div class="kpi"><span>Margin</span><b>27.9%</b><em>▲ 2.4pt</em></div>
+            </div>
+
+            <div class="chartbox">
+              <svg class="chart" viewBox="0 0 300 124" role="img" aria-label="Illustrative revenue trend rising across twelve months">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#5AA9FF"/>
+                    <stop offset="60%" stop-color="#FFC65C"/>
+                    <stop offset="100%" stop-color="#FFE0A3"/>
+                  </linearGradient>
+                  <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#FFC65C" stop-opacity=".30"/>
+                    <stop offset="100%" stop-color="#FFC65C" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <line class="chart__grid" x1="8" y1="25" x2="292" y2="25"/>
+                <line class="chart__grid" x1="8" y1="50" x2="292" y2="50"/>
+                <line class="chart__grid" x1="8" y1="75" x2="292" y2="75"/>
+                <line class="chart__grid" x1="8" y1="100" x2="292" y2="100"/>
+                <path class="chart__area" d="M12 87 L36 79 L60 81 L84 70 L108 63 L132 67 L156 53 L180 47 L204 50 L228 35 L252 17 L276 9 L276 100 L12 100 Z"/>
+                <path class="chart__line" pathLength="100" d="M12 87 L36 79 L60 81 L84 70 L108 63 L132 67 L156 53 L180 47 L204 50 L228 35 L252 17 L276 9"/>
+                <circle class="chart__ring" cx="276" cy="9" r="4"/>
+                <circle class="chart__dot" cx="276" cy="9" r="3.2"/>
+                <text class="chart__lbl" x="8"   y="115">JAN</text>
+                <text class="chart__lbl" x="80"  y="115">APR</text>
+                <text class="chart__lbl" x="152" y="115">JUL</text>
+                <text class="chart__lbl" x="224" y="115">OCT</text>
+                <text class="chart__lbl" x="272" y="115">DEC</text>
+              </svg>
+            </div>
+
+            <div class="splits">
+              <div class="srow"><span>Amazon</span><span class="track"><i class="bar" style="--w:68%"></i></span><b>68%</b></div>
+              <div class="srow"><span>Shopify</span><span class="track"><i class="bar" style="--w:14%"></i></span><b>14%</b></div>
+              <div class="srow"><span>Walmart</span><span class="track"><i class="bar bar--blue" style="--w:11%"></i></span><b>11%</b></div>
+              <div class="srow"><span>TikTok Shop</span><span class="track"><i class="bar bar--blue" style="--w:7%"></i></span><b>7%</b></div>
+            </div>
+          </div>
+          <p class="caption">Illustrative view — the weekly report clients receive</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section class="band">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="tag">What we do</span>
+        <h2>Nine service lines,<br>one operating team.</h2>
+        <p class="lede">Most sellers stall for one of three reasons: the wrong product, the wrong channel, or a company structure that can't hold the account. We work on all three.</p>
+      </div>
+
+      <div class="grid grid--3" data-reveal>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">⬢</span><span class="tag">AMZ / Wholesale</span></div>
+          <h3>Amazon Wholesale</h3>
+          <p>Buy authorised inventory from brands and distributors, then win the Buy Box on listings that already sell. Lower creative risk, faster first revenue.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">◆</span><span class="tag">AMZ / Private Label</span></div>
+          <h3>Amazon Private Label</h3>
+          <p>Your own brand, your own listing, your own margin. Product selection, packaging, listing copy, A+ content and the launch runway behind it.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">⇄</span><span class="tag">AMZ / Arbitrage</span></div>
+          <h3>Amazon Arbitrage</h3>
+          <p>Online and retail arbitrage run as a system: sourcing lists, ROI thresholds, prep routing and repricing rules instead of guesswork.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">▣</span><span class="tag">SHP / Storefront</span></div>
+          <h3>Shopify Stores</h3>
+          <p>A store you own outright — theme build, product architecture, checkout tuning, apps that earn their subscription and analytics you can read.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">✦</span><span class="tag">WMT / Marketplace</span></div>
+          <h3>Walmart Marketplace</h3>
+          <p>Seller approval, catalogue ingestion, WFS decisions and listing quality — on a marketplace with a fraction of Amazon's competition.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">▶</span><span class="tag">TTS / Live Commerce</span></div>
+          <h3>TikTok Shop</h3>
+          <p>Shop setup, catalogue sync, affiliate and creator seeding, plus the content cadence that makes live selling work rather than just exist.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">◎</span><span class="tag">SRC / Hunting</span></div>
+          <h3>Product Hunting</h3>
+          <p>Demand-tested shortlists with seasonality, competition and margin modelled in — and a written go or no-go before you commit capital.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">⚓</span><span class="tag">SRC / Supply</span></div>
+          <h3>Sourcing &amp; Suppliers</h3>
+          <p>Factory verification, quotation comparison, sample rounds, quality inspection and freight terms agreed before the first purchase order.</p>
+        </article>
+
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">§</span><span class="tag">REG / Legal</span></div>
+          <h3>Company &amp; Trademark</h3>
+          <p>US LLC and UK private limited formation, EIN and registered address, plus trademark filing that unlocks Amazon Brand Registry.</p>
+        </article>
+      </div>
+
+      <div style="margin-top:32px" data-reveal>
+        <a class="btn btn--ghost" href="#/services">Read the full service detail <span class="btn__arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LISTING ANATOMY ── -->
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="duo duo--flip">
+        <div class="duo__art" data-reveal>
+          <div class="listing">
+            <div class="listing__img">
+              <span class="badge">Brand registered</span>
+              <span class="badge badge--buy">Buy Box won</span>
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                <path d="M50 12 L86 30 L86 70 L50 88 L14 70 L14 30 Z" stroke-linejoin="round"/>
+                <path d="M14 30 L50 48 L86 30" stroke-linejoin="round"/>
+                <path d="M50 48 L50 88" stroke-linejoin="round"/>
+                <path d="M32 21 L68 39" stroke-linejoin="round" opacity=".45"/>
+              </svg>
+            </div>
+            <div class="listing__body">
+              <h4>Your product, listed properly</h4>
+              <div class="stars"><i>★★★★★</i><span>4.7 · 1,284 ratings</span></div>
+              <div class="price"><b>$34.99</b><s>$49.99</s><em>−30%</em></div>
+              <p class="ship">In stock · Delivered in 2 days</p>
+              <p class="seller">Sold and dispatched by your registered company</p>
+              <button class="btn btn--gold btn--wide" style="margin-top:16px" data-book>Add to cart</button>
+            </div>
+          </div>
+          <p class="caption">Illustrative listing — not a real product</p>
+        </div>
+
+        <div data-reveal>
+          <span class="tag">Listing quality</span>
+          <h2 style="margin:14px 0 18px">A listing is a<br>conversion machine.</h2>
+          <p class="lede">Traffic is the expensive part. Most sellers buy it and then lose it on a page that doesn't answer the shopper's question. We build the page first.</p>
+          <div class="notes">
+            <div class="note"><b>Images that carry the pitch</b>
+              <p>Main image, scale shot, in-use, feature callouts and a comparison frame — because most shoppers never read the bullets.</p></div>
+            <div class="note"><b>Copy indexed for real searches</b>
+              <p>Title, bullets and backend terms built from the keywords buyers actually type, not the ones you'd hope for.</p></div>
+            <div class="note"><b>Price and Buy Box strategy</b>
+              <p>Repricing rules with a floor you set, so you compete without quietly selling at a loss.</p></div>
+            <div class="note"><b>Brand Registry protection</b>
+              <p>Once your trademark lands, A+ content, a storefront and the tools to remove hijackers.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LIVE COMMERCE ── -->
+  <section class="band">
+    <div class="wrap">
+      <div class="duo">
+        <div data-reveal>
+          <span class="tag tag--blue">Live commerce</span>
+          <h2 style="margin:14px 0 18px">On TikTok Shop, the<br>ad <span class="gold">is</span> the shop.</h2>
+          <p class="lede">Discovery, demonstration and checkout happen in one scroll. That rewards volume of content and a working affiliate programme far more than it rewards ad budget.</p>
+          <div class="notes">
+            <div class="note"><b>Shop setup and catalogue sync</b>
+              <p>Registration, category approval and products pushed live with compliant listings and correct shipping templates.</p></div>
+            <div class="note"><b>Creator seeding at scale</b>
+              <p>Outreach lists, sample dispatch and commission tiers structured so creators have a reason to post twice.</p></div>
+            <div class="note"><b>A live schedule you can keep</b>
+              <p>Session plans, pinned product rotation and offer timing — run consistently rather than once, hopefully.</p></div>
+          </div>
+          <div style="margin-top:28px"><button class="btn btn--gold" data-book>Set up my TikTok Shop <span class="btn__arrow">→</span></button></div>
+        </div>
+
+        <div class="duo__art" data-reveal>
+          <div class="phone" aria-hidden="true">
+            <div class="phone__scene"></div>
+            <div class="phone__notch"></div>
+            <div class="phone__host"></div>
+            <div class="live">
+              <span class="live__pill">LIVE</span>
+              <span class="live__eyes">◉ 4,182 watching</span>
+            </div>
+            <span class="heart">♥</span><span class="heart">♥</span>
+            <span class="heart">♥</span><span class="heart">♥</span>
+            <div class="pin">
+              <span class="pin__img"></span>
+              <span><b>Featured product</b><span>$34.99</span></span>
+              <em>Buy</em>
+            </div>
+            <div class="cmts">
+              <p class="cmt"><b>@nadia_k</b> does it ship to the UK?</p>
+              <p class="cmt"><b>@marcus.d</b> just ordered two 🔥</p>
+              <p class="cmt"><b>@sana</b> what's the size guide?</p>
+            </div>
+          </div>
+          <p class="caption">Illustrative live session — not a real broadcast</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROCESS ── -->
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="head" data-reveal>
+        <span class="tag tag--blue">How an engagement runs</span>
+        <h2>Four stages. No mystery.</h2>
+      </div>
+      <div class="steps" data-reveal>
+        <div class="step"><span class="step__n">01</span><div><h3>Consultation</h3>
+          <p>A working call, not a pitch. We map your capital, your time, your target market and which channel actually suits them.</p></div></div>
+        <div class="step"><span class="step__n">02</span><div><h3>Structure</h3>
+          <p>Entity, bank, tax registrations and marketplace accounts set up in the right order — so nothing gets suspended for a mismatch later.</p></div></div>
+        <div class="step"><span class="step__n">03</span><div><h3>Supply</h3>
+          <p>Products chosen against real demand data, suppliers vetted, samples approved and landed cost signed off before the first purchase order.</p></div></div>
+        <div class="step"><span class="step__n">04</span><div><h3>Scale</h3>
+          <p>Listings live, ads managed, inventory forecast and reporting sent on a fixed rhythm. You always know your numbers.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CHANNEL COMPARISON ── -->
+  <section class="band">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="tag">Choosing a channel</span>
+        <h2>Which marketplace<br>suits your money?</h2>
+        <p class="lede">There is no best channel, only the one that matches your capital, your patience and your product. This is roughly how we frame the decision on the first call.</p>
+      </div>
+      <div class="tablewrap" data-reveal>
+        <table class="ctable">
+          <thead>
+            <tr><th>Channel</th><th>Capital to start</th><th>Time to first sale</th><th>Competition</th><th>Best suited to</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Amazon Arbitrage</th><td>Low</td><td>Days</td><td>High</td><td>Learning the mechanics with small, fast cycles</td></tr>
+            <tr><th>Amazon Wholesale</th><td>Medium</td><td>Weeks</td><td>High</td><td>Steady volume without building a brand</td></tr>
+            <tr><th>Amazon Private Label</th><td>High</td><td>Months</td><td>Medium</td><td>Building an asset with defensible margin</td></tr>
+            <tr><th>Shopify</th><td>Medium</td><td>Weeks</td><td>Traffic-dependent</td><td>Owning the customer and the data</td></tr>
+            <tr><th>Walmart Marketplace</th><td>Medium</td><td>Weeks</td><td>Low</td><td>Sellers already stocked and wanting a second channel</td></tr>
+            <tr><th>TikTok Shop</th><td>Low to medium</td><td>Days to weeks</td><td>Content-dependent</td><td>Visual, demonstrable products with impulse appeal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption" style="text-align:left">General guidance — your figures are worked out properly on the call</p>
+    </div>
+  </section>
+
+  <!-- ── GLOBAL PRESENCE ── -->
+  <section class="band">
+    <div class="wrap">
+      <div class="head head--center" data-reveal>
+        <span class="tag">Where we are</span>
+        <h2>Five offices, five time zones.</h2>
+        <p class="lede" style="margin-inline:auto">Sourcing in India, entities in the US and UK, operations across the Gulf and the Caucasus. Someone on the team is awake when your marketplace is.</p>
+      </div>
+
+      <div class="globe" aria-hidden="true">
+        <div class="globe__ring g2"></div>
+        <div class="globe__ring g1"></div>
+        <div class="globe__core"></div>
+        <div class="orbit" id="orbit"></div>
+      </div>
+
+      <div class="cities" data-reveal>
+        <span class="chip">Udaipur, India</span>
+        <span class="chip">London, UK</span>
+        <span class="chip">New Jersey, USA</span>
+        <span class="chip">Baku, Azerbaijan</span>
+        <span class="chip">Dubai, UAE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="head" data-reveal>
+        <span class="tag">Common questions</span>
+        <h2>Asked on most first calls.</h2>
+      </div>
+      <div class="faq" data-reveal>
+        <details open>
+          <summary>How much capital do I actually need to start?</summary>
+          <p>It depends entirely on the channel. Arbitrage can start small because you buy stock in short cycles and recycle the cash quickly. Private label needs the most, since you are paying for inventory, packaging, samples and a launch before a single unit sells. Wholesale sits in between. On the call we work backwards from what you have rather than pushing you towards the model with the biggest fee.</p>
+        </details>
+        <details>
+          <summary>Do I need a US LLC or UK Ltd company to sell?</summary>
+          <p>Not always to open an account, but it changes what is possible. A registered company affects which payment providers and banks will work with you, how you are taxed, and whether you can file a trademark and enrol in Brand Registry. Setting it up before you scale is far cheaper than restructuring afterwards.</p>
+        </details>
+        <details>
+          <summary>How long does trademark registration take?</summary>
+          <p>Filing takes days. Examination and publication take months, and the exact timeline depends on the office and whether anything is queried. We handle the clearance search, the filing and any office actions, and tell you at the start what is realistic for your name and classes.</p>
+        </details>
+        <details>
+          <summary>Who owns the accounts and the brand?</summary>
+          <p>You do, without exception. The company, the marketplace accounts, the trademark, the supplier relationships and the data are all in your name. We work inside them as your team. If you stop working with us, nothing leaves with us.</p>
+        </details>
+        <details>
+          <summary>Can you take over a store that already exists?</summary>
+          <p>Yes, and it is a large part of what we do. We start with an audit of listings, pricing, ad spend, inventory and supply chain, then tell you which single constraint is actually holding growth back before we touch anything.</p>
+        </details>
+        <details>
+          <summary>Do you guarantee results?</summary>
+          <p>No, and be careful with anyone who does. Marketplace outcomes depend on product, capital, competition and timing. What we commit to is the work, the reporting rhythm and an honest read on whether a plan is realistic — including telling you when it isn't.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap band--sm">
+    <div class="callout" data-reveal>
+      <span class="tag">Free · 30 minutes · No obligation</span>
+      <h2>Tell us where you're stuck.</h2>
+      <p class="lede">Bring your budget, your target market and any account you already have. You'll leave the call with a channel recommendation and a realistic timeline — whether or not you work with us.</p>
+      <button class="btn btn--gold" data-book>Book your consultation today <span class="btn__arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SERVICES
+     ═══════════════════════════════════════════════ -->
+<section class="page" id="page-services">
+  <div class="wrap" style="padding-top:clamp(112px,15vw,164px)">
+    <div class="head">
+      <span class="eyebrow"><i></i><span class="tag">Services</span></span>
+      <h2>Everything from the first supplier email to the <span class="gold">trademark certificate</span>.</h2>
+      <p class="lede">Take one line or the whole stack. Most clients start with a single channel and add structure work once volume justifies it.</p>
+    </div>
+  </div>
+
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="subhead" data-reveal>
+        <span class="tag">Group 01</span><h3>Amazon</h3><span class="line"></span><span class="tag tag--mute">3 lines</span>
+      </div>
+      <div class="grid grid--3" data-reveal>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">⬢</span><span class="tag">Wholesale</span></div>
+          <h3>Amazon Wholesale</h3>
+          <p>Sell established, in-demand brands rather than building one from scratch.</p>
+          <ul class="card__list">
+            <li>Brand and distributor outreach with approval templates</li>
+            <li>Buy Box and profitability analysis before you order</li>
+            <li>Prep centre coordination and FBA shipment plans</li>
+            <li>Repricing strategy and inventory replenishment</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">◆</span><span class="tag">Private Label</span></div>
+          <h3>Amazon Private Label</h3>
+          <p>Build an asset you own, with margin that isn't shared with fifteen other sellers.</p>
+          <ul class="card__list">
+            <li>Product validation against demand and competition data</li>
+            <li>Design, packaging and differentiation brief</li>
+            <li>Listing copy, photography direction and A+ content</li>
+            <li>Launch plan: PPC, review velocity, ranking targets</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">⇄</span><span class="tag">Arbitrage</span></div>
+          <h3>Online &amp; Retail Arbitrage</h3>
+          <p>The fastest way in, run with discipline so it stays profitable past month two.</p>
+          <ul class="card__list">
+            <li>Daily sourcing lists filtered to your ROI floor</li>
+            <li>Restriction and IP checks before purchase</li>
+            <li>Prep, labelling and shipping workflow</li>
+            <li>Cash-flow tracking so stock never traps capital</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band--sm">
+    <div class="wrap">
+      <div class="subhead" data-reveal>
+        <span class="tag tag--blue">Group 02</span><h3>Other channels</h3><span class="line"></span><span class="tag tag--mute">3 lines</span>
+      </div>
+      <div class="grid grid--3" data-reveal>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">▣</span><span class="tag">Shopify</span></div>
+          <h3>Shopify</h3>
+          <p>Your own storefront, where you keep the customer and the data.</p>
+          <ul class="card__list">
+            <li>Theme build or custom design, mobile first</li>
+            <li>Collection and product page architecture</li>
+            <li>Checkout, shipping profiles and payment setup</li>
+            <li>Email flows, analytics and conversion review</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">✦</span><span class="tag">Walmart</span></div>
+          <h3>Walmart Marketplace</h3>
+          <p>Fewer sellers per listing, and a shopper who converts.</p>
+          <ul class="card__list">
+            <li>Seller application and approval support</li>
+            <li>Bulk catalogue upload and content quality scoring</li>
+            <li>Walmart Fulfilment Services vs seller-fulfilled analysis</li>
+            <li>Sponsored Products campaign management</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">▶</span><span class="tag">TikTok Shop</span></div>
+          <h3>TikTok Shop</h3>
+          <p>Where discovery and checkout happen in the same swipe.</p>
+          <ul class="card__list">
+            <li>Shop registration and product catalogue sync</li>
+            <li>Affiliate programme setup and creator outreach</li>
+            <li>Sample seeding and commission structuring</li>
+            <li>Live selling schedule and content calendar</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="subhead" data-reveal>
+        <span class="tag">Group 03</span><h3>Supply &amp; structure</h3><span class="line"></span><span class="tag tag--mute">3 lines</span>
+      </div>
+      <div class="grid grid--3" data-reveal>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">◎</span><span class="tag">Product hunting</span></div>
+          <h3>Product Hunting</h3>
+          <p>A shortlist you can defend, not a hunch.</p>
+          <ul class="card__list">
+            <li>Demand, seasonality and competition screening</li>
+            <li>Margin modelling with fees, freight and returns included</li>
+            <li>Patent and IP risk check</li>
+            <li>Go / no-go recommendation in writing</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">⚓</span><span class="tag">Sourcing</span></div>
+          <h3>Sourcing &amp; Suppliers</h3>
+          <p>Vetted manufacturers, agreed terms, no surprises at the port.</p>
+          <ul class="card__list">
+            <li>Supplier shortlisting and factory verification</li>
+            <li>Quotation comparison and price negotiation</li>
+            <li>Sample rounds and quality inspection</li>
+            <li>Freight, Incoterms and customs coordination</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">§</span><span class="tag">US LLC · UK Ltd</span></div>
+          <h3>Company Formation</h3>
+          <p>The legal base your marketplace accounts stand on.</p>
+          <ul class="card__list">
+            <li>US LLC formation with EIN and registered agent</li>
+            <li>UK private limited company incorporation</li>
+            <li>Registered address, VAT and sales-tax guidance</li>
+            <li>Business bank and payment gateway applications</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band--sm">
+    <div class="wrap">
+      <div class="subhead" data-reveal>
+        <span class="tag">Group 04</span><h3>Protection &amp; retainer</h3><span class="line"></span><span class="tag tag--mute">2 lines</span>
+      </div>
+      <div class="grid grid--2" data-reveal>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">™</span><span class="tag">USPTO · UKIPO</span></div>
+          <h3>Trademark Registration</h3>
+          <p>Protect the name, then use it to lock down your listings.</p>
+          <ul class="card__list">
+            <li>Clearance search across USPTO and UKIPO</li>
+            <li>Class selection and application filing</li>
+            <li>Office action responses and progress tracking</li>
+            <li>Amazon Brand Registry enrolment once granted</li>
+          </ul>
+        </article>
+        <article class="card" data-tilt><span class="card__bar"></span><span class="card__glow"></span>
+          <div class="card__top"><span class="card__ico">◈</span><span class="tag">Managed</span></div>
+          <h3>Full Account Management</h3>
+          <p>Everything above, run as one retainer with a single point of contact.</p>
+          <ul class="card__list">
+            <li>Multi-channel listing and inventory oversight</li>
+            <li>Ad spend managed against agreed ACOS targets</li>
+            <li>Supplier reorders and cash-flow planning</li>
+            <li>Weekly reporting in plain language</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ENGAGEMENT MODELS ── -->
+  <section class="band--sm">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="tag">How we work together</span>
+        <h2>Three ways to engage.</h2>
+        <p class="lede">Pricing depends on channel, scope and the state of the account, so we quote after the first call rather than publishing a number that would be wrong for most people.</p>
+      </div>
+      <div class="grid grid--3" data-reveal>
+        <div class="plan">
+          <span class="tag">Model 01</span>
+          <span class="plan__p">Project</span>
+          <span class="plan__n">Fixed scope · Fixed fee</span>
+          <p>One defined piece of work with a clear finish line — company formation, a trademark filing, a Shopify build or a product sourcing round. You know the cost before it starts.</p>
+        </div>
+        <div class="plan">
+          <span class="tag">Model 02</span>
+          <span class="plan__p">Setup &amp; handover</span>
+          <span class="plan__n">Built with you · Then yours</span>
+          <p>We build the whole channel — entity, account, listings, supply — then train you or your team to run it and step back. Best if you want the skill in-house.</p>
+        </div>
+        <div class="plan">
+          <span class="tag">Model 03</span>
+          <span class="plan__p">Managed retainer</span>
+          <span class="plan__n">Monthly · Ongoing</span>
+          <p>We run the account day to day across every channel you sell on, with weekly reporting and a single point of contact. Best if you'd rather own the business than operate it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap band--sm">
+    <div class="callout" data-reveal>
+      <span class="tag">Not sure which line you need?</span>
+      <h2>That's what the first call is for.</h2>
+      <p class="lede">Thirty minutes, no cost, no pressure. We'll tell you honestly if a channel isn't right for your budget.</p>
+      <button class="btn btn--gold" data-book>Book your consultation today <span class="btn__arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════════════ -->
+<section class="page" id="page-about">
+  <div class="wrap" style="padding-top:clamp(112px,15vw,164px)">
+    <div class="hero__grid">
+      <div>
+        <span class="eyebrow"><i></i><span class="tag">About AZAI Enterprises</span></span>
+        <h2>A consultancy built by <span class="gold">operators</span>, not lecturers.</h2>
+        <p class="lede" style="margin-top:20px">AZAI Enterprises exists because too many sellers are sold a course when what they needed was a team. We work inside the account: the supplier calls, the shipment plans, the listing fixes, the filings.</p>
+        <p class="mute" style="margin-top:16px">We cover the full chain — company formation, trademark, sourcing, listing and channel management — so nothing gets dropped between three freelancers who never speak to each other. One team, one point of contact, one plan you can follow.</p>
+        <div style="margin-top:28px"><button class="btn btn--gold" data-book>Talk to us <span class="btn__arrow">→</span></button></div>
+      </div>
+
+      <!-- SIGNATURE 2 -->
+      <div class="logo3d" aria-hidden="true">
+        <div class="ring ring--a"></div>
+        <div class="ring ring--b"></div>
+        <div class="logo3d__stage" id="logo3d"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="zone" style="margin-top:clamp(40px,6vw,72px)">
+    <div class="wrap band--sm">
+      <div class="head" data-reveal>
+        <span class="tag">How we work</span>
+        <h2>Four things we won't compromise on.</h2>
+      </div>
+      <div class="grid grid--4" data-reveal>
+        <div class="pillar"><span class="tag">01</span><h4>Numbers first</h4>
+          <p>Every product and channel recommendation comes with landed cost, fees and a break-even figure. If the maths doesn't work, we say so.</p></div>
+        <div class="pillar"><span class="tag">02</span><h4>Compliance early</h4>
+          <p>Entity, tax and IP handled before scale, not after a suspension email. It is far cheaper in that order.</p></div>
+        <div class="pillar"><span class="tag">03</span><h4>You own everything</h4>
+          <p>Accounts, brand, supplier relationships and data stay in your name. We're a team you hire, not a partner you're stuck with.</p></div>
+        <div class="pillar"><span class="tag">04</span><h4>Reporting on a rhythm</h4>
+          <p>Fixed weekly updates in plain language — sales, spend, margin and what's next. No chasing for answers.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap band--sm">
+    <div class="head" data-reveal>
+      <span class="tag tag--blue">Who we work with</span>
+      <h2>Three kinds of client.</h2>
+    </div>
+    <div class="steps" data-reveal>
+      <div class="step"><span class="step__n">A</span><div><h3>First-time sellers</h3>
+        <p>You have capital and time but no account, no company and no product. We build the whole thing with you and hand over the controls.</p></div></div>
+      <div class="step"><span class="step__n">B</span><div><h3>Stalled sellers</h3>
+        <p>The store exists but growth flattened. We audit listings, ads, pricing and supply chain, then fix the constraint that's actually binding.</p></div></div>
+      <div class="step"><span class="step__n">C</span><div><h3>Expanding brands</h3>
+        <p>Doing well on one channel and ready for the next — Walmart, TikTok Shop, or a UK entity to open the European market.</p></div></div>
+    </div>
+  </div>
+
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="head head--center" data-reveal>
+        <span class="tag">Global footprint</span>
+        <h2>Five offices, five time zones.</h2>
+      </div>
+      <div class="cities" data-reveal>
+        <span class="chip">Udaipur, India</span>
+        <span class="chip">London, UK</span>
+        <span class="chip">New Jersey, USA</span>
+        <span class="chip">Baku, Azerbaijan</span>
+        <span class="chip">Dubai, UAE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── METRICS WE WATCH ── -->
+  <section class="band--sm">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="tag">The vocabulary</span>
+        <h2>Six numbers we watch<br>on every account.</h2>
+        <p class="lede">If any of these are new to you, that's fine — they're explained on the call rather than used to sound impressive.</p>
+      </div>
+      <div class="grid grid--3" data-reveal>
+        <div class="pillar"><span class="tag">Metric</span><h4>Landed cost</h4>
+          <p>What a unit truly costs by the time it reaches the warehouse — factory price, freight, duty and prep, not just the quote.</p></div>
+        <div class="pillar"><span class="tag">Metric</span><h4>Contribution margin</h4>
+          <p>What's left after referral fees, fulfilment, storage and returns. The only profit figure worth planning around.</p></div>
+        <div class="pillar"><span class="tag">Metric</span><h4>ACOS &amp; TACOS</h4>
+          <p>Ad spend as a share of ad sales, and of total sales. The second one tells you whether ads are building anything.</p></div>
+        <div class="pillar"><span class="tag">Metric</span><h4>Buy Box share</h4>
+          <p>The percentage of the day your offer is the default one. On a shared listing, this is the whole game.</p></div>
+        <div class="pillar"><span class="tag">Metric</span><h4>Sell-through rate</h4>
+          <p>How fast stock moves relative to what's held. Slow sell-through quietly turns your cash into shelf space.</p></div>
+        <div class="pillar"><span class="tag">Metric</span><h4>Days of cover</h4>
+          <p>How long current inventory lasts at the current run rate — the number that decides when to reorder.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap band--sm">
+    <div class="callout" data-reveal>
+      <span class="tag">Start here</span>
+      <h2>One call tells you more than a month of research.</h2>
+      <p class="lede">We'll go through your situation properly and give you a straight answer on what's realistic.</p>
+      <button class="btn btn--gold" data-book>Book your consultation today <span class="btn__arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CONTACT
+     ═══════════════════════════════════════════════ -->
+<section class="page" id="page-contact">
+  <div class="wrap" style="padding-top:clamp(112px,15vw,164px)">
+    <div class="head head--center">
+      <span class="eyebrow"><i></i><span class="tag">Contact</span></span>
+      <h2>Tell us what you're building.</h2>
+      <p class="lede" style="margin-inline:auto">Fill this in and we'll reply within one business day with two call times — or an honest note on why we're not the right fit.</p>
+    </div>
+  </div>
+
+  <div class="wrap band--sm">
+    <div class="formbox" data-reveal style="max-width:780px;margin-inline:auto">
+      <form id="contactForm">
+        <div class="two">
+          <div class="field"><label for="cn">Full name</label><input id="cn" required autocomplete="name"></div>
+          <div class="field"><label for="ce">Email</label><input id="ce" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="cp">WhatsApp or phone</label><input id="cp" autocomplete="tel"></div>
+          <div class="field"><label for="cc">Country</label><input id="cc" autocomplete="country-name"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="cs">Service you need</label>
+            <select id="cs">
+              <option>Amazon Wholesale</option><option>Amazon Private Label</option>
+              <option>Amazon Arbitrage</option><option>Shopify store</option>
+              <option>Walmart Marketplace</option><option>TikTok Shop</option>
+              <option>Product sourcing &amp; hunting</option><option>US LLC / UK Ltd formation</option>
+              <option>Trademark registration</option><option>Full account management</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field"><label for="cb">Budget to start</label>
+            <select id="cb">
+              <option>Under $2,000</option><option>$2,000 – $5,000</option>
+              <option>$5,000 – $15,000</option><option>$15,000+</option>
+              <option>Prefer to discuss on the call</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="cm">Where you're at right now</label>
+          <textarea id="cm" placeholder="Existing store? Product in mind? Company already registered?"></textarea></div>
+        <button class="btn btn--gold btn--wide" type="submit">Send and request a call <span class="btn__arrow">→</span></button>
+        <p class="mute" style="font-size:.77rem;margin-top:14px;text-align:center;max-width:none">Used only to reply to this enquiry. The consultation is free and carries no obligation.</p>
+      </form>
+    </div>
+  </div>
+
+  <section class="zone">
+    <div class="wrap band--sm">
+      <div class="head head--center" data-reveal>
+        <span class="tag">Offices</span>
+        <h2>Five offices, five time zones.</h2>
+        <p class="lede" style="margin-inline:auto">Whichever market you sell into, someone on the team is working while it's open.</p>
+      </div>
+      <div class="grid grid--3" data-reveal>
+        <div class="pillar"><span class="tag">India</span><h4>Udaipur</h4><p>Sourcing, product research and day-to-day operations.</p></div>
+        <div class="pillar"><span class="tag">United Kingdom</span><h4>London</h4><p>UK Ltd formation, UKIPO filings and European market entry.</p></div>
+        <div class="pillar"><span class="tag">United States</span><h4>New Jersey</h4><p>LLC formation, USPTO filings and Amazon US accounts.</p></div>
+        <div class="pillar"><span class="tag">Azerbaijan</span><h4>Baku</h4><p>Account management and client support.</p></div>
+        <div class="pillar"><span class="tag">United Arab Emirates</span><h4>Dubai</h4><p>Logistics coordination and Gulf market operations.</p></div>
+        <div class="pillar"><span class="tag tag--blue">Hours</span><h4>Monday – Saturday</h4><p>09:00 – 19:00 local. Calls are booked in your time zone, not ours.</p></div>
+      </div>
+    </div>
+  </section>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <a class="brand" href="#/home" style="margin-bottom:16px">
+          <svg class="mark" aria-hidden="true"><use href="#azai"/></svg>
+          <span><span class="brand__name">AZAI Enterprises</span>
+          <span class="brand__sub">Ecom Consultation &amp; Management</span></span>
+        </a>
+        <p class="mute" style="font-size:.87rem;max-width:36ch">Marketplace operations, sourcing and company formation for sellers in the US, UK and beyond.</p>
+        <button class="btn btn--gold btn--sm" data-book style="margin-top:20px">Book a consultation</button>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#/services">Amazon Wholesale</a></li>
+          <li><a href="#/services">Amazon Private Label</a></li>
+          <li><a href="#/services">Amazon Arbitrage</a></li>
+          <li><a href="#/services">Shopify &amp; Walmart</a></li>
+          <li><a href="#/services">TikTok Shop</a></li>
+          <li><a href="#/services">Sourcing &amp; Trademark</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#/about">About us</a></li>
+          <li><a href="#/contact">Contact</a></li>
+          <li><a href="#" data-book>Book a consultation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Offices</h5>
+        <ul>
+          <li>Udaipur, India</li>
+          <li>London, UK</li>
+          <li>New Jersey, USA</li>
+          <li>Baku, Azerbaijan</li>
+          <li>Dubai, UAE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>© <span id="yr"></span> AZAI Enterprises. All rights reserved.</span>
+      <span>Independent consultancy. Not affiliated with Amazon, Shopify, Walmart or TikTok.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ MODAL ══════════ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal__veil" data-close></div>
+  <div class="modal__box">
+    <button class="modal__x" data-close aria-label="Close">×</button>
+    <div id="mForm">
+      <span class="tag">Free 30-minute call</span>
+      <h3 id="mTitle">Book your consultation</h3>
+      <p class="mute" style="font-size:.9rem;margin-bottom:24px">Send this and we'll come back with two time slots that suit you.</p>
+      <form id="bookForm">
+        <div class="two">
+          <div class="field"><label for="bn">Name</label><input id="bn" required autocomplete="name"></div>
+          <div class="field"><label for="be">Email</label><input id="be" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="bw">WhatsApp</label><input id="bw" autocomplete="tel"></div>
+          <div class="field"><label for="bs">Interested in</label>
+            <select id="bs">
+              <option>Amazon (wholesale / PL / arbitrage)</option><option>Shopify</option>
+              <option>Walmart Marketplace</option><option>TikTok Shop</option>
+              <option>Product sourcing &amp; hunting</option><option>Company formation &amp; trademark</option>
+              <option>Full setup — everything</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="bm">Anything we should know first?</label>
+          <textarea id="bm" style="min-height:80px"></textarea></div>
+        <button class="btn btn--gold btn--wide" type="submit">Request my call <span class="btn__arrow">→</span></button>
+      </form>
+    </div>
+    <div class="done" id="mDone">
+      <div class="done__tick">✓</div>
+      <h3>Request sent</h3>
+      <p class="mute" style="margin-inline:auto;font-size:.92rem">We'll reply within one business day with call times. If your mail app opened, hit send there to finish.</p>
+      <button class="btn btn--ghost btn--sm" data-close style="margin-top:22px">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── where enquiries go. Never shown on the page. ── */
+  var MAIL = "hello@azaienterprises.com";
+  /* ── paste a Calendly / Cal.com link to bypass the form ── */
+  var BOOKING_URL = "";
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* ── router ─────────────────────────────── */
+  var pages = ["home","services","about","contact"];
+  var titles = {home:"Ecom Consultation and Management", services:"Services",
+                about:"About us", contact:"Contact"};
+  function go(){
+    var id = (location.hash.replace("#/","") || "home").split("?")[0];
+    if(pages.indexOf(id) === -1) id = "home";
+    pages.forEach(function(p){
+      document.getElementById("page-"+p).classList.toggle("is-live", p === id);
+    });
+    document.querySelectorAll("[data-nav]").forEach(function(a){
+      if(a.dataset.nav === id) a.setAttribute("aria-current","page");
+      else a.removeAttribute("aria-current");
+    });
+    document.title = "AZAI Enterprises — " + titles[id];
+    window.scrollTo({top:0, behavior: reduce ? "auto" : "smooth"});
+    closeMenu(); observeAll();
+  }
+  addEventListener("hashchange", go);
+
+  /* ── nav ────────────────────────────────── */
+  var nav = document.getElementById("nav"),
+      menu = document.getElementById("menu"),
+      burger = document.getElementById("burger");
+  function closeMenu(){
+    menu.classList.remove("is-open"); burger.classList.remove("is-open");
+    burger.setAttribute("aria-expanded","false");
+  }
+  burger.addEventListener("click", function(){
+    var open = menu.classList.toggle("is-open");
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+  });
+  menu.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", closeMenu); });
+  addEventListener("scroll", function(){
+    nav.classList.toggle("is-stuck", scrollY > 14);
+  }, {passive:true});
+
+  /* ── reveal ─────────────────────────────── */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add("seen"); io.unobserve(e.target); }
+    });
+  }, {threshold:.1, rootMargin:"0px 0px -40px 0px"});
+
+  function observeAll(){
+    document.querySelectorAll(".page.is-live [data-reveal]").forEach(function(el){
+      el.classList.remove("seen"); io.observe(el);
+    });
+  }
+
+  /* ── stat count-up ──────────────────────── */
+  var counted = false;
+  var statIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting || counted) return;
+      counted = true;
+      e.target.querySelectorAll("[data-count]").forEach(function(n){
+        var end = +n.dataset.count, t0 = null;
+        if(reduce){ n.textContent = end; return; }
+        requestAnimationFrame(function tick(ts){
+          if(!t0) t0 = ts;
+          var p = Math.min((ts - t0)/900, 1);
+          n.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+          if(p < 1) requestAnimationFrame(tick);
+        });
+      });
+    });
+  }, {threshold:.5});
+  statIO.observe(document.getElementById("stats"));
+
+  /* ── signature 1: channel cube ──────────── */
+  var cube = document.getElementById("cube"), pick = document.getElementById("cubepick");
+  var T = {front:{x:-14,y:0},  right:{x:-14,y:-90}, back:{x:-14,y:-180},
+           left:{x:-14,y:90},  top:{x:-88,y:0},     bottom:{x:88,y:0}};
+  var cur = {x:-16,y:22}, tgt = {x:-16,y:22}, locked = false, idle;
+
+  function drift(){
+    if(!locked) tgt.y += 0.2;
+    cur.x += (tgt.x - cur.x) * .07;
+    cur.y += (tgt.y - cur.y) * .07;
+    cube.style.transform = "rotateX("+cur.x.toFixed(2)+"deg) rotateY("+cur.y.toFixed(2)+"deg)";
+    requestAnimationFrame(drift);
+  }
+  if(!reduce) requestAnimationFrame(drift);
+  else cube.style.transform = "rotateX(-16deg) rotateY(22deg)";
+
+  pick.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    var t = T[b.dataset.face]; if(!t) return;
+    pick.querySelectorAll("button").forEach(function(x){ x.classList.toggle("on", x === b); });
+    locked = true;
+    var turns = Math.round((cur.y - t.y)/360) * 360;   // always spin the short way
+    tgt.x = t.x; tgt.y = t.y + turns;
+    clearTimeout(idle);
+    idle = setTimeout(function(){ locked = false; }, 5500);
+  });
+
+  /* ── signature 2: extruded logo ─────────── */
+  var stage = document.getElementById("logo3d"), depth = 16, lh = "";
+  for(var i = 0; i < depth; i++){
+    lh += '<div class="logo3d__layer" style="transform:translateZ(' + (-i * 2.6) +
+          'px);opacity:' + (1 - i * 0.034) + '">' +
+          '<svg viewBox="0 0 100 100" width="200" height="200"><use href="#azai"/></svg></div>';
+  }
+  stage.innerHTML = lh;
+
+  /* ── signature 3: offices orbit ─────────── */
+  var offices = [
+    {c:"Udaipur",    k:"India"},
+    {c:"London",     k:"United Kingdom"},
+    {c:"New Jersey", k:"USA"},
+    {c:"Baku",       k:"Azerbaijan"},
+    {c:"Dubai",      k:"UAE"}
+  ];
+  var orbit = document.getElementById("orbit"), oh = "",
+      R = innerWidth < 760 ? 190 : 250;
+  offices.forEach(function(o, i){
+    oh += '<div class="city" style="transform:rotateY(' + (i * 72) + 'deg) translateZ(' + R + 'px)">' +
+          '<i></i><b>' + o.c + '</b><span>' + o.k + '</span></div>';
+  });
+  orbit.innerHTML = oh;
+
+  /* ── card tilt ──────────────────────────── */
+  if(!reduce && matchMedia("(hover:hover)").matches){
+    document.querySelectorAll("[data-tilt]").forEach(function(c){
+      c.addEventListener("mousemove", function(ev){
+        var r = c.getBoundingClientRect();
+        var px = (ev.clientX - r.left)/r.width, py = (ev.clientY - r.top)/r.height;
+        c.style.setProperty("--mx", (px*100) + "%");
+        c.style.setProperty("--my", (py*100) + "%");
+        c.style.transform = "perspective(800px) rotateX(" + ((.5 - py)*4.5).toFixed(2) +
+                            "deg) rotateY(" + ((px - .5)*4.5).toFixed(2) + "deg) translateZ(6px)";
+      });
+      c.addEventListener("mouseleave", function(){ c.style.transform = ""; });
+    });
+  }
+
+  /* ── ticker ─────────────────────────────── */
+  var items = ["Amazon FBA","Private Label","Wholesale","Online Arbitrage","Shopify",
+               "Walmart Marketplace","TikTok Shop","Product Sourcing","US LLC","UK Ltd","Trademark"];
+  document.getElementById("tick").innerHTML =
+    items.concat(items).map(function(t){ return "<span>" + t + "</span>"; }).join("");
+
+  /* ── modal + forms ──────────────────────── */
+  var modal = document.getElementById("modal"),
+      mForm = document.getElementById("mForm"),
+      mDone = document.getElementById("mDone"), last = null;
+
+  function openModal(){
+    if(BOOKING_URL){ open(BOOKING_URL, "_blank", "noopener"); return; }
+    last = document.activeElement;
+    mForm.style.display = ""; mDone.classList.remove("on");
+    modal.classList.add("is-open"); document.body.style.overflow = "hidden";
+    setTimeout(function(){ var f = document.getElementById("bn"); if(f) f.focus(); }, 60);
+  }
+  function shut(){
+    modal.classList.remove("is-open"); document.body.style.overflow = "";
+    if(last) last.focus();
+  }
+  document.addEventListener("click", function(e){
+    if(e.target.closest("[data-book]")){ e.preventDefault(); openModal(); }
+    if(e.target.closest("[data-close]")) shut();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && modal.classList.contains("is-open")) shut();
+  });
+
+  function val(id){ return document.getElementById(id).value; }
+  function send(subject, lines){
+    location.href = "mailto:" + MAIL + "?subject=" + encodeURIComponent(subject) +
+                    "&body=" + encodeURIComponent(lines.join("\n"));
+  }
+
+  document.getElementById("bookForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    send("Consultation request — " + val("bs"),
+      ["Name: " + val("bn"), "Email: " + val("be"), "WhatsApp: " + val("bw"),
+       "Interested in: " + val("bs"), "", "Notes:", val("bm")]);
+    mForm.style.display = "none"; mDone.classList.add("on");
+  });
+
+  document.getElementById("contactForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    send("Enquiry — " + val("cs"),
+      ["Name: " + val("cn"), "Email: " + val("ce"), "Phone: " + val("cp"),
+       "Country: " + val("cc"), "Service: " + val("cs"), "Budget: " + val("cb"),
+       "", "Message:", val("cm")]);
+    e.target.reset();
+    openModal(); mForm.style.display = "none"; mDone.classList.add("on");
+  });
+
+  go();
+})();
+</script>
+</body>
+</html>
